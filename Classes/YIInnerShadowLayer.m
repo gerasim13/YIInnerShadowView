@@ -10,14 +10,15 @@
 
 @implementation YIInnerShadowLayer
 
+#pragma mark - Lifecycle
+
 - (id)init
 {
-    self = [super init];
-    if (self) {
-        
-        self.masksToBounds = YES;
+    if (self = [super init])
+    {
         self.needsDisplayOnBoundsChange = YES;
-        self.shouldRasterize = YES;
+        self.masksToBounds              = YES;
+        self.shouldRasterize            = YES;
         
         // Standard shadow stuff
         [self setShadowColor:[[UIColor colorWithWhite:0 alpha:1] CGColor]];
@@ -26,10 +27,8 @@
         [self setShadowRadius:5];
         
         // Causes the inner region in this example to NOT be filled.
-        [self setFillRule:kCAFillRuleEvenOdd];
-        
+        self.fillRule   = kCAFillRuleEvenOdd;
         self.shadowMask = YIInnerShadowMaskAll;
-        
     }
     return self;
 }
@@ -38,15 +37,15 @@
 {
     [super layoutSublayers];
     
-    CGFloat top = (self.shadowMask & YIInnerShadowMaskTop ? self.shadowRadius : 0);
+    CGFloat top    = (self.shadowMask & YIInnerShadowMaskTop    ? self.shadowRadius : 0);
     CGFloat bottom = (self.shadowMask & YIInnerShadowMaskBottom ? self.shadowRadius : 0);
-    CGFloat left = (self.shadowMask & YIInnerShadowMaskLeft ? self.shadowRadius : 0);
-    CGFloat right = (self.shadowMask & YIInnerShadowMaskRight ? self.shadowRadius : 0);
+    CGFloat left   = (self.shadowMask & YIInnerShadowMaskLeft   ? self.shadowRadius : 0);
+    CGFloat right  = (self.shadowMask & YIInnerShadowMaskRight  ? self.shadowRadius : 0);
     
-    CGRect largerRect = CGRectMake(self.bounds.origin.x - left,
-                                   self.bounds.origin.y - top,
-                                   self.bounds.size.width + left + right,
-                                   self.bounds.size.height + top + bottom);
+    CGRect largerRect = CGRectMake(CGRectGetMinX  (self.bounds) - left,
+                                   CGRectGetMinY  (self.bounds) - top,
+                                   CGRectGetWidth (self.bounds) + left + right,
+                                   CGRectGetHeight(self.bounds) + top  + bottom);
     
     // Create the larger rectangle path.
     CGMutablePathRef path = CGPathCreateMutable();
@@ -57,7 +56,8 @@
     // a rounded one for some extra fanciness.
     CGFloat cornerRadius = self.cornerRadius;
     UIBezierPath *bezier;
-    if (cornerRadius) {
+    if (cornerRadius)
+    {
         bezier = [UIBezierPath bezierPathWithRoundedRect:self.bounds cornerRadius:cornerRadius];
     } else {
         bezier = [UIBezierPath bezierPathWithRect:self.bounds];
@@ -70,9 +70,7 @@
     CGPathRelease(path);
 }
 
-#pragma mark -
-
-#pragma mark Accessors
+#pragma mark - Accessors
 
 - (void)setShadowMask:(YIInnerShadowMask)shadowMask
 {
