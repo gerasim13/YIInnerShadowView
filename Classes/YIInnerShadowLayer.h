@@ -9,7 +9,8 @@
 #import <UIKit/UIKit.h>
 #import <QuartzCore/QuartzCore.h>
 
-typedef enum {
+typedef NS_ENUM(NSUInteger, YIInnerShadowMask)
+{
     YIInnerShadowMaskNone       = 0,
     YIInnerShadowMaskTop        = 1 << 1,
     YIInnerShadowMaskBottom     = 1 << 2,
@@ -18,7 +19,7 @@ typedef enum {
     YIInnerShadowMaskVertical   = YIInnerShadowMaskTop | YIInnerShadowMaskBottom,
     YIInnerShadowMaskHorizontal = YIInnerShadowMaskLeft | YIInnerShadowMaskRight,
     YIInnerShadowMaskAll        = YIInnerShadowMaskVertical | YIInnerShadowMaskHorizontal
-} YIInnerShadowMask;
+};
 
 //
 // Ideas from Matt Wilding:

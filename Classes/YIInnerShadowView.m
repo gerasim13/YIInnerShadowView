@@ -20,15 +20,13 @@
     // add as sublayer so that self.backgroundColor will work nicely
     _innerShadowLayer = [YIInnerShadowLayer layer];
     
-    _innerShadowLayer.actions = [NSDictionary dictionaryWithObjectsAndKeys:
-                                 [NSNull null], @"position",
-                                 [NSNull null], @"bounds",
-                                 [NSNull null], @"contents",
-                                 [NSNull null], @"shadowColor",
-                                 [NSNull null], @"shadowOpacity",
-                                 [NSNull null], @"shadowOffset",
-                                 [NSNull null], @"shadowRadius",
-                                 nil];
+    _innerShadowLayer.actions = @{@"position": [NSNull null],
+                                 @"bounds": [NSNull null],
+                                 @"contents": [NSNull null],
+                                 @"shadowColor": [NSNull null],
+                                 @"shadowOpacity": [NSNull null],
+                                 @"shadowOffset": [NSNull null],
+                                 @"shadowRadius": [NSNull null]};
     
     [self.layer addSublayer:_innerShadowLayer];
     self.layer.masksToBounds = YES;
